@@ -3,42 +3,35 @@ import java.util.Scanner;
 public class Babysitter {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
         // start time
-        int start;
-        do {
-            System.out.print("Enter start time (between 5 P.M. and 4 A.M.): ");
-            while (!scanner.hasNextInt()) {
-                System.out.print("Sorry, please enter a number: ");
-                scanner.next();
-            }
-            start = scanner.nextInt();
-        } while (start < 4 || start > 12);
+        String msg = "Enter start time (between 5 P.M. and 4 A.M.): ";
+        int start = getInput(msg);
 
         // end time
-        int end;
-        do {
-            System.out.print("Enter end time (between 5 P.M. and 4 A.M.): ");
-            while (!scanner.hasNextInt()) {
-                System.out.print("Sorry, please enter a number: ");
-                scanner.next();
-            }
-            end = scanner.nextInt();
-        } while (end < 4 || end > 12);
+        msg = "Enter end time (between 5 P.M. and 4 A.M.): ";
+        int end = getInput(msg);
 
         // bedtime
-        int bed;
+        msg = "Enter bedtime (between 5 P.M. and 4 A.M.): ";
+        int bed = getInput(msg);
+
+        calculateCharge(start, end, bed);
+    }
+
+    private static int getInput(String msg) {
+        Scanner scanner = new Scanner(System.in);
+        int value;
+
         do {
-            System.out.print("Enter bedtime (between 5 P.M. and 4 A.M.): ");
+            System.out.print(msg);
             while (!scanner.hasNextInt()) {
                 System.out.print("Sorry, please enter a number: ");
                 scanner.next();
             }
-            bed = scanner.nextInt();
-        } while (bed < 4 || bed > 12);
+            value = scanner.nextInt();
+        } while (value < 4 || value > 12);
 
-        calculateCharge(start, end, bed);
+        return value;
     }
 
     private static void calculateCharge(int start, int end, int bed) {
