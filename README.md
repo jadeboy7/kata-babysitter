@@ -16,3 +16,17 @@ The babysitter:
 *As a babysitter<br>
 In order to get paid for 1 night of work<br>
 I want to calculate my nightly charge<br>*
+
+## How To Run
+
+To run program:
+```
+// from the 'run_this' folder
+> java -jar kata-babysitter.jar
+```
+
+To run tests:
+```
+// from the 'run_this' folder
+> java -jar junit-platform-console-standalone-1.3.1.jar -cp kata-babysitter.jar --scan-classpath
+```
