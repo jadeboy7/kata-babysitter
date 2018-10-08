@@ -2,6 +2,7 @@ package babysitter;
 
 import exception.InvalidInputException;
 
+import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -117,6 +118,8 @@ public class Babysitter {
             totalCharge += Math.max(0, midnightIndex - bedIndex) * BED_TO_MIDNIGHT;
         }
 
-        System.out.println("Total Charge: " + totalCharge);
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        String strTotalCharge = formatter.format(totalCharge);
+        System.out.println("Total Nightly Charge: " + strTotalCharge);
     }
 }
