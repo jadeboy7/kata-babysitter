@@ -66,34 +66,54 @@ public class Babysitter {
             - $16/hour from midnight to end of job
 
          Priority:
-            1. Midnight to end: always $16/hour (regardless of bedtime)
-            2a. Start time to bedtime, if start time is before midnight and bedtime is before/at midnight: $12/hour
-            2b. Start time to midnight, if start time is before midnight and bedtime is after midnight: $12/hour
-            3a. Bedtime to end time, if bedtime is before midnight and end time is before/at midnight: $8/hour
-            3b. Bedtime to midnight, if bedtime is before midnight and end time is after midnight: $8/hour
+            1a. Start to end, if both after midnight: $16/hour (regardless of bedtime)
+            1b. Midnight to end, if start time is before/at midnight: $16/hour (regardless of bedtime)
+            2a. Start time to end time, if start time is before midnight, end time is before/at midnight, and end time is before/at bedtime: $12/hour
+            2b. Start time to bedtime, if start time is before midnight, bedtime is before/at midnight, and end time is after midnight: $12/hour
+            2c. Start time to midnight, if start time is before midnight and bedtime is after midnight, and end time is after midnight: $12/hour
+            3a. Start time to end time, if start time is after bedtime, start time is before midnight, and end time is before/at midnight: $8/hour
+            3b. Bedtime to end time, if bedtime is after start time, bedtime is before midnight and end time is before/at midnight: $8/hour
+            3c. Bedtime to midnight, if bedtime is at/after start time, bedtime is before midnight and end time is after midnight: $8/hour
          */
         int totalCharge = 0;
 
-        // 1.
-        totalCharge += Math.max(0, endIndex - midnightIndex) * MIDNIGHT_TO_END;
+        // 1a.
+        if (startIndex > midnightIndex) {
+            totalCharge += Math.max(0, endIndex - startIndex) * MIDNIGHT_TO_END;
+        }
+
+        // 1b.
+        if (startIndex <= midnightIndex) {
+            totalCharge += Math.max(0, endIndex - midnightIndex) * MIDNIGHT_TO_END;
+        }
 
         // 2a.
-        if (startIndex < midnightIndex && bedIndex <= midnightIndex) {
-            totalCharge += Math.max(0, bedIndex - startIndex) * START_TO_BED;
+        if (startIndex < midnightIndex && endIndex <= midnightIndex && endIndex <= bedIndex) {
+            totalCharge += Math.max(0, endIndex - startIndex) * START_TO_BED;
         }
 
         // 2b.
-        if (startIndex < midnightIndex && bedIndex > midnightIndex) {
+        if (startIndex < midnightIndex && bedIndex <= midnightIndex && endIndex > midnightIndex) {
+            totalCharge += Math.max(0, bedIndex - startIndex) * START_TO_BED;
+        }
+
+        // 2c.
+        if (startIndex < midnightIndex && bedIndex > midnightIndex && endIndex > midnightIndex) {
             totalCharge += Math.max(0, midnightIndex - startIndex) * START_TO_BED;
         }
 
         // 3a.
-        if (bedIndex < midnightIndex && endIndex <= midnightIndex) {
-            totalCharge += Math.max(0, endIndex - bedIndex) * BED_TO_MIDNIGHT;
+        if (bedIndex <= startIndex && startIndex < midnightIndex && endIndex <= midnightIndex) {
+            totalCharge += Math.max(0, endIndex - startIndex) * BED_TO_MIDNIGHT;
         }
 
         // 3b.
-        if (bedIndex < midnightIndex && endIndex > midnightIndex) {
+        if (bedIndex > startIndex && bedIndex < midnightIndex && endIndex <= midnightIndex) {
+            totalCharge += Math.max(0, endIndex - bedIndex) * BED_TO_MIDNIGHT;
+        }
+
+        // 3c.
+        if (bedIndex >= startIndex && bedIndex < midnightIndex && endIndex > midnightIndex) {
             totalCharge += Math.max(0, midnightIndex - bedIndex) * BED_TO_MIDNIGHT;
         }
 
