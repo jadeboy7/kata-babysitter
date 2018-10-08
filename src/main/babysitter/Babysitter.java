@@ -10,17 +10,22 @@ import java.util.Scanner;
 public class Babysitter {
 
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
         // start time
         String msg = "Enter start time (between 5 P.M. and 4 A.M.): ";
-        int start = getInput(msg);
+        int start = getInput(scanner, msg);
 
         // end time
         msg = "Enter end time (between 5 P.M. and 4 A.M.): ";
-        int end = getInput(msg);
+        int end = getInput(scanner, msg);
 
         // bedtime
         msg = "Enter bedtime (between 5 P.M. and 4 A.M.): ";
-        int bed = getInput(msg);
+        int bed = getInput(scanner, msg);
+
+        // close scanner when finished
+        scanner.close();
 
         try {
             calculateCharge(start, end, bed);
@@ -29,8 +34,7 @@ public class Babysitter {
         }
     }
 
-    private static int getInput(String msg) {
-        Scanner scanner = new Scanner(System.in);
+    private static int getInput(Scanner scanner, String msg) {
         int value;
 
         do {
@@ -45,7 +49,7 @@ public class Babysitter {
         return value;
     }
 
-    private static void calculateCharge(int start, int end, int bed) throws InvalidInputException {
+    static int calculateCharge(int start, int end, int bed) throws InvalidInputException {
         final List<Integer> timeArray = Arrays.asList(5,6,7,8,9,10,11,12,1,2,3,4);
         final int START_TO_BED = 12, BED_TO_MIDNIGHT = 8, MIDNIGHT_TO_END = 16;
 
@@ -121,5 +125,7 @@ public class Babysitter {
         NumberFormat formatter = NumberFormat.getCurrencyInstance();
         String strTotalCharge = formatter.format(totalCharge);
         System.out.println("Total Nightly Charge: " + strTotalCharge);
+
+        return totalCharge;
     }
 }
