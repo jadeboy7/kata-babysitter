@@ -74,8 +74,9 @@ public class Babysitter {
             1a. Start to end, if both after midnight: $16/hour (regardless of bedtime)
             1b. Midnight to end, if start time is before/at midnight: $16/hour (regardless of bedtime)
             2a. Start time to end time, if start time is before midnight, end time is before/at midnight, and end time is before/at bedtime: $12/hour
-            2b. Start time to bedtime, if start time is before midnight, bedtime is before/at midnight, and end time is after midnight: $12/hour
-            2c. Start time to midnight, if start time is before midnight and bedtime is after midnight, and end time is after midnight: $12/hour
+            2b. Start time to bedtime, if start time is before midnight, end time is before/at midnight, and end time is after bedtime: $12/hour
+            2c. Start time to bedtime, if start time is before midnight, bedtime is before/at midnight, and end time is after midnight: $12/hour
+            2d. Start time to midnight, if start time is before midnight and bedtime is after midnight, and end time is after midnight: $12/hour
             3a. Start time to end time, if start time is after bedtime, start time is before midnight, and end time is before/at midnight: $8/hour
             3b. Bedtime to end time, if bedtime is after start time, bedtime is before midnight and end time is before/at midnight: $8/hour
             3c. Bedtime to midnight, if bedtime is at/after start time, bedtime is before midnight and end time is after midnight: $8/hour
@@ -98,11 +99,16 @@ public class Babysitter {
         }
 
         // 2b.
-        if (startIndex < midnightIndex && bedIndex <= midnightIndex && endIndex > midnightIndex) {
+        if (startIndex < midnightIndex && endIndex <= midnightIndex && endIndex > bedIndex) {
             totalCharge += Math.max(0, bedIndex - startIndex) * START_TO_BED;
         }
 
         // 2c.
+        if (startIndex < midnightIndex && bedIndex <= midnightIndex && endIndex > midnightIndex) {
+            totalCharge += Math.max(0, bedIndex - startIndex) * START_TO_BED;
+        }
+
+        // 2d.
         if (startIndex < midnightIndex && bedIndex > midnightIndex && endIndex > midnightIndex) {
             totalCharge += Math.max(0, midnightIndex - startIndex) * START_TO_BED;
         }
