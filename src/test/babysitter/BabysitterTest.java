@@ -106,8 +106,8 @@ class BabysitterTest {
     // Test case 13
     @Test
     void calculateCharge_case_13() throws InvalidInputException {
-        int expected = 24, result;
-        result = Babysitter.calculateCharge(9, 12, 9);
+        int expected = 56, result;
+        result = Babysitter.calculateCharge(9, 2, 7);
         assertEquals(expected, result);
     }
 
@@ -115,29 +115,37 @@ class BabysitterTest {
     @Test
     void calculateCharge_case_14() throws InvalidInputException {
         int expected = 24, result;
-        result = Babysitter.calculateCharge(9, 11, 11);
+        result = Babysitter.calculateCharge(9, 12, 9);
         assertEquals(expected, result);
     }
 
     // Test case 15
     @Test
     void calculateCharge_case_15() throws InvalidInputException {
-        int expected = 68, result;
-        result = Babysitter.calculateCharge(9, 2, 2);
+        int expected = 24, result;
+        result = Babysitter.calculateCharge(9, 11, 11);
         assertEquals(expected, result);
     }
 
     // Test case 16
     @Test
     void calculateCharge_case_16() throws InvalidInputException {
-        int expected = 32, result;
-        result = Babysitter.calculateCharge(12, 2, 12);
+        int expected = 68, result;
+        result = Babysitter.calculateCharge(9, 2, 2);
         assertEquals(expected, result);
     }
 
     // Test case 17
     @Test
     void calculateCharge_case_17() throws InvalidInputException {
+        int expected = 32, result;
+        result = Babysitter.calculateCharge(12, 2, 12);
+        assertEquals(expected, result);
+    }
+
+    // Test case 18
+    @Test
+    void calculateCharge_case_18() throws InvalidInputException {
         int expected = 36, result;
         result = Babysitter.calculateCharge(9, 12, 12);
         assertEquals(expected, result);
