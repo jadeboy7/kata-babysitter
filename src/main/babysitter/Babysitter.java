@@ -80,7 +80,7 @@ public class Babysitter {
             3a. Start time to end time, if start time is after bedtime, start time is before midnight, and end time is before/at midnight: $8/hour
             3b. Start time to midnight, if start time is after bedtime, start time is before midnight, and end time is after midnight: $8/hour
             3c. Bedtime to end time, if bedtime is after start time, bedtime is before midnight and end time is before/at midnight: $8/hour
-            3d. Bedtime to midnight, if bedtime is at/after start time, bedtime is before midnight and end time is after midnight: $8/hour
+            3d. Bedtime to midnight, if bedtime is after start time, bedtime is before midnight and end time is after midnight: $8/hour
          */
         int totalCharge = 0;
 
@@ -130,7 +130,7 @@ public class Babysitter {
         }
 
         // 3d.
-        if (bedIndex >= startIndex && bedIndex < midnightIndex && endIndex > midnightIndex) {
+        if (bedIndex > startIndex && bedIndex < midnightIndex && endIndex > midnightIndex) {
             totalCharge += Math.max(0, midnightIndex - bedIndex) * BED_TO_MIDNIGHT;
         }
 
